@@ -35,7 +35,7 @@ const reducer = function(state = initialState, action) {
         const userIdx = state.users.findIndex(user => user._id === state.selectedUser._id);
         const accountIdx = state.users[userIdx].accounts.findIndex(account => account.id === state.selectedAccount.id);
 
-        return update(state, {
+        let newState = update(state, {
           users: {
             [userIdx]: {
               accounts: {
@@ -51,6 +51,8 @@ const reducer = function(state = initialState, action) {
             }
           }
         })
+        newState.selectedAccount = newState.users[userIdx].accounts[accountIdx]
+        return newState
     default:
         return state;
       }
