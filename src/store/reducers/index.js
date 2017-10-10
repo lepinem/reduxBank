@@ -31,18 +31,19 @@ const reducer = function(state = initialState, action) {
         }
       })
 
-    case WITHDRAW_FUNDS:
-      const userId = state.users.find(user => user.id === state.selectedUser);
-      const accountId = state.users[userId].accounts.find(account => account.id === state.selectedAccount);
+      case WITHDRAW_FUNDS:
+        const userIdx = state.users.findIndex(user => user._id === state.selectedUser._id);
+        const accountIdx = state.users[userIdx].accounts.findIndex(account => account.id === state.selectedAccount.id);
 
         return update(state, {
           users: {
-            [userId]: {
+            [userIdx]: {
               accounts: {
-                [accountId]: {
+                [accountIdx]: {
                   balance: {
-                    $apply: (balance) => {
-                      return balance - action.payload
+                    $apply: function(balance) {
+                    console.log("balance - ", balance - action.payload);
+                    return balance - action.payload
                     }
                   }
                 }
@@ -51,8 +52,8 @@ const reducer = function(state = initialState, action) {
           }
         })
     default:
-      return state;
+        return state;
+      }
   }
-}
 
 export default reducer;

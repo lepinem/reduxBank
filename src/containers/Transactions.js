@@ -83,6 +83,7 @@ class Transactions extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log("state", state);
   return {
     user: state.selectedUser,
     account: state.selectedAccount,
@@ -92,7 +93,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        withdrawFunds: withdrawFunds
+      withdrawFunds: withdrawFunds
     }, dispatch)
 }
 
